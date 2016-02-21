@@ -58,10 +58,8 @@ class Maze(Grid):
         def findSetOfOccurrence(v, sets):
             for s in sets:
                 if v in s:
-                    return set(s)
-            curr_s = set()
-            curr_s.add(v)
-            return curr_s
+                    return frozenset(s)
+            return frozenset([v])
 
         # run Kruskal's until all vertices are connected
         while count < total:
@@ -69,6 +67,8 @@ class Maze(Grid):
             curr_vs = list(edge.vertices)
             v_set1 = findSetOfOccurrence(curr_vs[0], vertex_sets)
             v_set2 = findSetOfOccurrence(curr_vs[1], vertex_sets)
+            print reduce(lambda x,y: str(x)+','+str(y),v_set1)
+            print reduce(lambda x,y: str(x)+','+str(y),v_set2)
             # would cause a cycle, ignore
             if v_set1 == v_set2:
                 continue
@@ -76,15 +76,19 @@ class Maze(Grid):
             # remove the sets if they exist in the current group
             for i in (v_set1, v_set2):
                 try:
-                    vertex_sets.remove(tuple(i))
+                    vertex_sets.remove(frozenset(i))
                 except KeyError:
                     pass
             # add back the unioned set
-            vertex_sets.add(tuple(v_set1|v_set2))
+            vertex_sets.add(frozenset(v_set1|v_set2))
+            print "VS"
+            print "\n".join([reduce(lambda x,y: str(x)+','+str(y),s) for s in vertex_sets])
+            print "-----"
             path.append(edge)
             count += 1
 
         # put maze edges into grid
+        print reduce(lambda x,y: str(x) + ',' + str(y), path)
         for edge in path:
             vs = list(edge.vertices)
             v1 = self.cells[vs[0].y][vs[0].x]

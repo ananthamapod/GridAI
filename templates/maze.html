@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<body>
+{% for row in maze %}
+  {% for cell in row %}
+    <div style="width:{{100//width-1}}%; border: 1px solid red;
+    {% if (-1,0) in cell.neighbors %}
+      border-top-color:white;
+    {% endif %}
+    {% if (1,0) in cell.neighbors %}
+      border-bottom-color:white;
+    {% endif %}
+    {% if (0,-1) in cell.neighbors %}
+      border-left-color:white;
+    {% endif %}
+    {% if (0,1) in cell.neighbors %}
+      border-right-color:white;
+    {% endif %}
+    margin:0;padding:0;display:inline-block">&nbsp;</div>
+  {% endfor %}
+{% endfor %}
+
+<script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+<script type="text/javascript">
+  $("div").height($("div").width());
+</script>
