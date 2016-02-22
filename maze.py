@@ -67,8 +67,8 @@ class Maze(Grid):
             curr_vs = list(edge.vertices)
             v_set1 = findSetOfOccurrence(curr_vs[0], vertex_sets)
             v_set2 = findSetOfOccurrence(curr_vs[1], vertex_sets)
-            print reduce(lambda x,y: str(x)+','+str(y),v_set1)
-            print reduce(lambda x,y: str(x)+','+str(y),v_set2)
+            #print reduce(lambda x,y: str(x)+','+str(y),v_set1)
+            #print reduce(lambda x,y: str(x)+','+str(y),v_set2)
             # would cause a cycle, ignore
             if v_set1 == v_set2:
                 continue
@@ -81,9 +81,9 @@ class Maze(Grid):
                     pass
             # add back the unioned set
             vertex_sets.add(frozenset(v_set1|v_set2))
-            print "VS"
-            print "\n".join([reduce(lambda x,y: str(x)+','+str(y),s) for s in vertex_sets])
-            print "-----"
+            #print "VS"
+            #print "\n".join([reduce(lambda x,y: str(x)+','+str(y),s) for s in vertex_sets])
+            #print "-----"
             path.append(edge)
             count += 1
 

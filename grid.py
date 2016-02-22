@@ -1,6 +1,4 @@
 from cell import Cell
-    # enqueue => append
-    # dequeue => popleft
 
 """ Class
 Name: Grid

@@ -3,7 +3,8 @@
 <body>
 {% for row in maze %}
   {% for cell in row %}
-    <div style="width:{{100//width-1}}%; border: 1px solid red;
+    <div class="cell" style="width:{{100//width-1}}%;
+    border: 1px solid black;
     {% if (-1,0) in cell.neighbors %}
       border-top-color:white;
     {% endif %}
@@ -16,11 +17,63 @@
     {% if (0,1) in cell.neighbors %}
       border-right-color:white;
     {% endif %}
-    margin:0;padding:0;display:inline-block">&nbsp;</div>
+    margin:0;padding:0;display:inline-block;float:left">&nbsp;</div>
   {% endfor %}
 {% endfor %}
 
 <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
 <script type="text/javascript">
-  $("div").height($("div").width());
+  var x = 0;
+  var y = 0;
+  var width = {{ width }};
+  console.log($(".cell").width());
+  $(".cell").height($(".cell").width());
+  /*var loc = $("<div>&nbsp;</div>");
+  loc.addClass("location");
+  loc.css("border-radius","50%")
+    .css("border","1px solid red")
+    .css("float", "left")
+    .css("width", height)
+    .css("height", height)
+    .css("padding", 0)
+    .css("margin", 0);*/
+  var start = $("<span>S</span>");
+  start.css("background", "green").css("color","white").css("padding","0 10px");
+  var end = $("<span>E</span>");
+  end.css("background", "red").css("color","white").css("padding","0 10px");
+  $(".cell").eq(0).css("background","blue").append(start);
+  $(".cell").eq(-1).append(end);
+  $(document).keypress(function(key) {
+    console.log(key.which);
+    var curr = $(".cell").eq(y*width+x);
+    // left
+    if (key.which === 97) {
+      if (curr.css("border-left-color") !== "rgb(0, 0, 0)") {
+          x--;
+      }
+    }
+    // up
+    else if (key.which === 119) {
+      if (curr.css("border-top-color") !== "rgb(0, 0, 0)") {
+          y--;
+      }
+    }
+    // right
+    else if (key.which === 100) {
+      if (curr.css("border-right-color") !== "rgb(0, 0, 0)") {
+          x++;
+      }
+    }
+    // down
+    else if (key.which === 115) {
+      if (curr.css("border-bottom-color") !== "rgb(0, 0, 0)") {
+          y++;
+      }
+    }
+    curr = $(".cell").eq(y*width+x);
+    $(".cell").css("background", "white");
+    curr.css("background", "blue");
+  });
 </script>
+</body>
+</html>
