@@ -1,0 +1,42 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Liberation Sans', sans-serif;
+}
+
+.maze {
+  position: relative;
+  margin: 20px;
+  text-align: center;
+  border-radius: 2em;
+  padding: 2em;
+  background: #f1f1f1;
+}
+#canvas {
+  width: 100%;
+}
+.row {
+  margin: 0;
+  padding: 0;
+  line-height: 0;
+}
+.cell {
+  width: 100px;
+  height: 100px;
+  margin: 0;
+  background: #666;
+  display: inline-block;
+  border: 2px solid black;
+}
+.right {
+  border-right: 2px solid #666;
+}
+.left {
+  border-left: 2px solid #666;
+}
+.top {
+  border-top: 2px solid #666;
+}
+.bottom {
+  border-bottom: 2px solid #666;
+}
