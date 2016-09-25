@@ -88,7 +88,7 @@ class Maze(Grid):
             count += 1
 
         # put maze edges into grid
-        print reduce(lambda x,y: str(x) + ',' + str(y), path)
+        # print reduce(lambda x,y: str(x) + ',' + str(y), path)
         for edge in path:
             vs = list(edge.vertices)
             v1 = self.cells[vs[0].y][vs[0].x]

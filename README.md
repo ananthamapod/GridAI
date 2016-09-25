@@ -1,6 +1,8 @@
 # GridWorld
 >This is a full environment for practice with building AIs in grid environments. It also has a web interface built with Flask
 
+---
+
 ## Setup
 Install the relevant dependencies (Flask). Recommended to installing these in a virtual environment. For more information on virtual environments in Python, see [Virtualenv](http://docs.python-guide.org/en/latest/dev/virtualenvs/)
 

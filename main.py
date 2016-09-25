@@ -1,8 +1,8 @@
 import os
 from maze import Maze
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, jsonify
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='/static')
 appContext = app.app_context()
 
 
@@ -17,7 +17,18 @@ def main():
 
 @app.route('/')
 def welcome():
-    return render_template('home.html')
+    return render_template('home2.html')
+
+
+
+@app.route('/new_maze', methods=["GET"])
+def maze():
+    width = int(request.args.get("height"))
+    height = int(request.args.get("width"))
+    if width and height:
+        environment = Maze(height, width)
+        environment.generate_maze()
+        return jsonify({'maze' : environment._jsonify()})
 
 
 

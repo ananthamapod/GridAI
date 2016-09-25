@@ -88,3 +88,14 @@ class Grid(object):
     """
     def __str__(self):
         return str([map(str, x) for x in self.cells])
+
+    """ JSON conversion convenience function
+    """
+    def _jsonify(self):
+        return {
+            "width" : self.width,
+            "height" : self.height,
+            "cells" : [
+                [cell._jsonify() for cell in row]
+            for row in self.cells]
+        }

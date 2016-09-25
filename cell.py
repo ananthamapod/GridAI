@@ -39,10 +39,15 @@ class Cell(object):
     """ Magic method
     """
     def __str__(self):
-        return str(self.filled)
+        return str({"nghbrs" : str(self.neighbors)});
 
 
     """ Magic method
     """
     def __hash__(self):
         return "-".join([self.x, self.y, self.filled])
+
+    def _jsonify(self):
+        return {
+            "nghbrs" : self.neighbors
+        }
