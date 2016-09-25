@@ -22,7 +22,9 @@ function create_cell_from_edges(cell) {
 }
 
 function build_maze() {
-  var canvas = document.getElementById('canvas')
+  var canvas_old = document.getElementById('canvas')
+  var canvas = document.createElement("div")
+  canvas.id = "canvas"
   for (var row of maze.cells) {
     var rowElem = document.createElement("div")
     rowElem.className = "row"
@@ -30,13 +32,15 @@ function build_maze() {
       var cellElem = create_cell_from_edges(cell)
       rowElem.appendChild(cellElem)
     }
-    document.body.appendChild(rowElem)
+    canvas.appendChild(rowElem)
   }
+  var mazeElem = document.body.querySelector(".maze")
+  mazeElem.replaceChild(canvas, canvas_old)
 }
 
 function request_maze() {
-  var width = $('[name=width]').val()
-  var height = $('[name=height]').val()
+  var width = document.querySelector('[name=width]').value
+  var height = document.querySelector('[name=height]').value
   $.get('/new_maze?' + 'width=' + width + '&height=' + height, function(response) {
     maze = response.maze
     build_maze()
@@ -46,7 +50,7 @@ function request_maze() {
 }
 
 function main() {
-  $('form#maze_form').submit(request_maze)
+  document.querySelector('form#maze_form').onsubmit = request_maze
 }
 
-$(document).ready(main)
+window.onload = main
