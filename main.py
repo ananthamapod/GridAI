@@ -3,9 +3,11 @@ from maze import Maze
 from flask import Flask, request, render_template, jsonify
 
 app = Flask(__name__, static_url_path='/static')
+app.jinja_env.add_extension('pypugjs.ext.jinja.PyPugJSExtension')
 appContext = app.app_context()
 
 
+#tester function for testing maze generation in isolation without server
 def main():
     height = width = 5
     environment = Maze(height, width)
@@ -14,13 +16,13 @@ def main():
     print environment
 
 
-
+# home route, now routing to template using canvas
 @app.route('/')
 def welcome():
-    return render_template('home2.html')
+    return render_template('index.pug')
 
 
-
+# api endpoint for new mazes
 @app.route('/new_maze', methods=["GET"])
 def maze():
     width = int(request.args.get("height"))
@@ -31,7 +33,7 @@ def maze():
         return jsonify({'maze' : environment._jsonify()})
 
 
-
+# old maze endpoint
 @app.route('/new', methods=["GET"])
 def generate_maze():
     width = int(request.args.get("height"))
