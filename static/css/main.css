@@ -29,14 +29,14 @@ html, body {
   border: 2px solid black;
 }
 .right {
-  border-right: 2px solid #666;
+  border-right: 2px solid #777;
 }
 .left {
-  border-left: 2px solid #666;
+  border-left: 2px solid #777;
 }
 .top {
-  border-top: 2px solid #666;
+  border-top: 2px solid #777;
 }
 .bottom {
-  border-bottom: 2px solid #666;
+  border-bottom: 2px solid #777;
 }
