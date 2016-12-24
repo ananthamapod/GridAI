@@ -31,7 +31,7 @@ function build_maze() {
     }
     $canvas.append($rowElem)
   }
-  $canvas_old.replaceWith($canvas)
+  $(".maze").append($canvas)
 }
 
 function request_maze() {
