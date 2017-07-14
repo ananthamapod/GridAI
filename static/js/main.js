@@ -2,6 +2,14 @@ var maze = {}
 var width = 0, height = 0
 var x = 0, y = 0
 
+function toggle_theme() {
+  if($(this).is(":checked")) {
+    $('body').addClass("theme-dark")
+  } else {
+    $('body').removeClass("theme-dark")
+  }
+}
+
 function create_cell_from_edges(cell) {
   var $cellElem = $("<div/>", {"class": "cell"})
 
@@ -26,14 +34,15 @@ function build_maze() {
   var $canvas_old = $('canvas')
   var $canvas = $("<div/>", {id: "canvas"})
   for (var row of maze.cells) {
-    var $rowElem = $("<div/>", {"class": "row"})
+    var $rowElem = $("<div/>", {class: "row d-flex justify-content-center"})
     for (var cell of row) {
       var $cellElem = create_cell_from_edges(cell)
       $rowElem.append($cellElem)
     }
     $canvas.append($rowElem)
   }
-  $canvas.find(".cell").eq(0).addClass("current")
+  $canvas.find(".cell").eq(0).addClass("current").addClass("start")
+  $canvas.find(".cell").eq(-1).addClass("end")
   $(".maze").html($canvas)
 }
 
@@ -49,7 +58,6 @@ function request_maze() {
 }
 
 function move_player(event) {
-  console.log("test")
   var currentSquare = $(".cell.current")
 
   switch (event.keyCode) {
@@ -71,7 +79,7 @@ function move_player(event) {
       break
     // right
     case 100:
-    case 83:
+    case 68:
       if (currentSquare.hasClass("right")) {
         x++
         currentSquare.removeClass("current")
@@ -79,7 +87,7 @@ function move_player(event) {
       break
     // bottom
     case 115:
-    case 68:
+    case 83:
       if (currentSquare.hasClass("bottom")) {
         y++
         currentSquare.removeClass("current")
@@ -93,8 +101,9 @@ function move_player(event) {
 }
 
 function main() {
-  $('form#maze_form').submit(request_maze)
+  $('#maze_form form').submit(request_maze)
   $(document).on("keypress", move_player)
+  $('input[name=theme]').change(toggle_theme)
 }
 
 $(document).ready(main)

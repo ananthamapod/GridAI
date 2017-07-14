@@ -1,16 +1,121 @@
+/****** OVERALL BODY STYLES *******/
 html, body {
   margin: 0;
   padding: 0;
   font-family: 'Liberation Sans', sans-serif;
 }
+body.theme-dark {
+  background: #2D2D2D;
+  transition: .4s;
+}
 
+header {
+  text-align: center;
+}
+.theme-dark header {
+  color: #ccc;
+  transition: .4s;
+}
+/**********************************/
+
+
+/************** FORM **************/
+#maze_form {
+  display: flex;
+  text-align: center;
+  font-family:'sans-serif';
+  margin: 1em;
+}
+button.btn {
+  cursor: pointer;
+}
+
+label.theme-label {
+  color: #333;
+}
+.theme-dark label.theme-label {
+  color: #ccc;
+}
+label.theme-label::after {
+  content: "light";
+}
+.theme-dark label.theme-label::after {
+  content: "dark";
+}
+
+/* The switch - the box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {display:none;}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #333;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #ccc;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #ccc;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+/**********************************/
+
+
+/************ MAIN MAZE ***********/
 .maze {
   position: relative;
-  margin: 20px;
+  margin: 1em;
   text-align: center;
   border-radius: 2em;
   padding: 2em;
   background: #f1f1f1;
+  transition: .4s;
+}
+.theme-dark .maze {
+  background: #313131;
 }
 #canvas {
   width: 100%;
@@ -20,6 +125,7 @@ html, body {
   padding: 0;
   line-height: 0;
 }
+
 .cell {
   width: 100px;
   height: 100px;
@@ -27,6 +133,7 @@ html, body {
   background: #666;
   display: inline-block;
   border: 2px solid black;
+  position: relative;
 }
 .right {
   border-right: 2px solid #777;
@@ -40,7 +147,21 @@ html, body {
 .bottom {
   border-bottom: 2px solid #777;
 }
-
 .current {
-  background-color: blue;
+  background-color: #1C86EE;
 }
+
+.start::before, .end::after {
+  color: ghostwhite;
+  text-transform: uppercase;
+  padding: 1em;
+}
+.start::before {
+  background: rgba(0,255,0, 0.6);
+  content: "start";
+}
+.end::after {
+  background: rgba(255,0,0, 0.6);
+  content: "end";
+}
+/**********************************/
