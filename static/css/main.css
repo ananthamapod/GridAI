@@ -10,6 +10,7 @@ body.theme-dark {
 }
 
 header {
+  padding: 2rem;
   text-align: center;
 }
 .theme-dark header {
