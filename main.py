@@ -18,10 +18,10 @@ def main():
 
 
 # home route, now routing to template using canvas
-@app.route('/')
-def welcome():
-    return render_template('index.pug')
-
+# @app.route('/')
+# def welcome():
+#     return render_template('index.pug')
+#
 
 # api endpoint for new mazes
 @app.route('/api/new_maze', methods=["GET"])

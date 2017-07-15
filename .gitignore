@@ -1,2 +1,4 @@
 env/
 *.pyc
+node_modules
+npm-debug.log
