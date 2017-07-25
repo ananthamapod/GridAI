@@ -1,8 +1,8 @@
 import $ from "jquery"
 
-var maze = {}
-var width = 0, height = 0
-var x = 0, y = 0
+let maze = {}
+let width = 0, height = 0
+let x = 0, y = 0
 
 function toggle_theme() {
   if($(this).is(":checked")) {
@@ -13,9 +13,9 @@ function toggle_theme() {
 }
 
 function create_cell_from_edges(cell) {
-  var $cellElem = $("<div/>", {"class": "cell"})
+  let $cellElem = $("<div/>", {"class": "cell"})
 
-  for (var neighbor of cell.nghbrs) {
+  for (let neighbor of cell.nghbrs) {
     if (neighbor[0] == 0 && neighbor[1] == 1) {
       $cellElem.addClass("right")
     }
@@ -33,11 +33,11 @@ function create_cell_from_edges(cell) {
 }
 
 function build_maze() {
-  var $canvas = $("<div/>", {id: "canvas"})
-  for (var row of maze.cells) {
-    var $rowElem = $("<div/>", {class: "row d-flex justify-content-center"})
-    for (var cell of row) {
-      var $cellElem = create_cell_from_edges(cell)
+  const $canvas = $("<div/>", {id: "canvas"})
+  for (let row of maze.cells) {
+    let $rowElem = $("<div/>", {class: "row d-flex justify-content-center"})
+    for (let cell of row) {
+      let $cellElem = create_cell_from_edges(cell)
       $rowElem.append($cellElem)
     }
     $canvas.append($rowElem)
@@ -59,7 +59,7 @@ function request_maze() {
 }
 
 function move_player(event) {
-  var currentSquare = $(".cell.current")
+  const currentSquare = $(".cell.current")
 
   switch (event.keyCode) {
     // left
@@ -93,6 +93,13 @@ function move_player(event) {
         y++
         currentSquare.removeClass("current")
       }
+      break
+    case 32:
+    case 37:
+    case 38:
+    case 39:
+    case 40:
+      event.preventDefault()
       break
     default:
 
