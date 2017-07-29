@@ -51,6 +51,7 @@ function request_maze() {
   width = $('[name=width]').val()
   height = $('[name=height]').val()
   $.get('/api/new_maze?' + 'width=' + width + '&height=' + height, function(response) {
+    x = y = 0
     maze = response.maze
     build_maze()
     return true
