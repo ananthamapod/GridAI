@@ -39,6 +39,10 @@ var config = {
         test: /\.pug|\.jade?/,
         include: APP_DIR,
         loader: 'pug-loader'
+      },
+      {
+        test: /\.(png|woff|woff2|eot|ttf|svg)$/,
+        loader: 'url-loader?limit=100000'
       }
     ]
   },

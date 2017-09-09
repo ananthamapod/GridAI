@@ -8,20 +8,20 @@ app.jinja_env.add_extension('pypugjs.ext.jinja.PyPugJSExtension')
 appContext = app.app_context()
 
 
+# home route, now routing to template using canvas
+@app.route('/')
+def welcome():
+    return render_template('index.pug')
+
+
 # tester function for testing maze generation in isolation without server
 def main():
     height = width = 5
     environment = Maze(height, width)
     environment.generate_maze()
     import pdb; pdb.set_trace()
-    print environment
+    print(environment)
 
-
-# home route, now routing to template using canvas
-# @app.route('/')
-# def welcome():
-#     return render_template('index.pug')
-#
 
 # api endpoint for new mazes
 @app.route('/api/new_maze', methods=["GET"])

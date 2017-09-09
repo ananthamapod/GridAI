@@ -1,14 +1,13 @@
 from cell import Cell
+from functools import reduce
 
 """ Class
-Name: Grid
-Description: Stores a grid environment made up of Cell objects
+Name: Vertex
+Description: High level Cell abstraction
 Fields:
- - width - integer width of grid
- - height - integer height of grid
- - cells - Cell objects for each cell in grid
+ - x, y - coordinates within the associated Grid
 Functions:
- - generate_maze - build maze in grid
+ - only the magic functions
 """
 class Vertex(object):
     """ Constructor

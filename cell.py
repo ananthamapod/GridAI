@@ -1,6 +1,6 @@
 """ Class
-Name: Grid
-Description: Stores a grid environment made up of Cell objects
+Name: Cell
+Description: Basic unit of a Grid environment
 Fields:
  - filled - whether the cell is an obstacle, for use in certain environments
  - x, y - coordinates within the associated Grid
@@ -9,7 +9,7 @@ Fields:
  - g - path cost value, for use in search algs
  - h - heuristic value, for use in search algs
 Functions:
- - generate_maze - build maze in grid
+ - only the magic functions
 """
 class Cell(object):
     """ Constructor
