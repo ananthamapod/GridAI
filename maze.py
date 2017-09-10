@@ -1,28 +1,25 @@
-from grid import Grid, Edge, Vertex
+from grid import Grid
+from graphutils import Edge, Vertex
 from random import randint
 from collections import deque
 
 """ Class
 Name: Maze
 Description: Subclass of Grid, maze environment
+    Generates maze based on building a spanning tree. Constructs
+    temporary graph of grid, generates randomly weighted edges, applies
+    Kruskal's algorithm to generate spanning tree. Applies the spanning
+    tree edges to current cells in self
 Fields:
  - width - integer width of grid
  - height - integer height of grid
  - cells - Cell objects for each cell in grid
-Functions:
- - generate_maze - build maze in grid
 """
 class Maze(Grid):
-    """ Function
-    Name: generate_maze
-    Inputs: None
-    Outputs: None
-    Description: Generates maze based on building a spanning tree. Constructs
-        temporary graph of grid, generates randomly weighted edges, applies
-        Kruskal's algorithm to generate spanning tree. Applies the spanning
-        tree edges to current cells in self
+    """ Constructor
     """
-    def generate_maze(self):
+    def __init__(self, width, height):
+        super().__init__(width, height)
         ### vertices
         vertices = [[Vertex(x,y) for x in range(self.width)] for y in range(self.height)]
         ### edges
@@ -53,20 +50,12 @@ class Maze(Grid):
         count = 1
         total = self.height*self.width
 
-        # looks through sets of connected vertices and finds the set of a particular vertex
-        # if no set contains, returns a set consisting of just that vertex
-        def findSetOfOccurrence(v, sets):
-            for s in sets:
-                if v in s:
-                    return frozenset(s)
-            return frozenset([v])
-
         # run Kruskal's until all vertices are connected
         while count < total:
             edge = edges.popleft()
             curr_vs = list(edge.vertices)
-            v_set1 = findSetOfOccurrence(curr_vs[0], vertex_sets)
-            v_set2 = findSetOfOccurrence(curr_vs[1], vertex_sets)
+            v_set1 = self.__find_set_of_occurrence_(curr_vs[0], vertex_sets)
+            v_set2 = self.__find_set_of_occurrence_(curr_vs[1], vertex_sets)
             #print reduce(lambda x,y: str(x)+','+str(y),v_set1)
             #print reduce(lambda x,y: str(x)+','+str(y),v_set2)
             # would cause a cycle, ignore
@@ -95,3 +84,18 @@ class Maze(Grid):
             v2 = self.cells[vs[1].y][vs[1].x]
             v1.neighbors.append((vs[1].y-vs[0].y, vs[1].x-vs[0].x))
             v2.neighbors.append((vs[0].y-vs[1].y, vs[0].x-vs[1].x))
+
+    """ Function
+    Name: find_set_of_occurrence (Private)
+    Inputs: v - Vertex
+    Outputs: sets - Set of vertex sets
+    Description: Looks through sets of connected vertices and finds the set of a particular vertex
+    if no set contains the vertex, returns a set consisting of just that vertex
+    """
+    def __find_set_of_occurrence_(self, v, sets):
+        for s in sets:
+            if v in s:
+                return frozenset(s)
+        return frozenset([v])
+
+

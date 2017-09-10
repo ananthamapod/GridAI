@@ -49,5 +49,6 @@ class Cell(object):
 
     def _jsonify(self):
         return {
-            "nghbrs" : self.neighbors
+            "neighbors" : self.neighbors,
+            "filled" : self.filled
         }

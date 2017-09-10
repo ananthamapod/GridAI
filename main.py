@@ -18,7 +18,6 @@ def welcome():
 def main():
     height = width = 5
     environment = Maze(height, width)
-    environment.generate_maze()
     import pdb; pdb.set_trace()
     print(environment)
 
@@ -30,7 +29,6 @@ def maze():
     height = int(request.args.get("width"))
     if width and height:
         environment = Maze(height, width)
-        environment.generate_maze()
         return jsonify({'maze' : environment._jsonify()})
 
 
@@ -41,7 +39,6 @@ def generate_maze():
     height = int(request.args.get("width"))
     if width and height:
         environment = Maze(height, width)
-        environment.generate_maze()
         return render_template('maze.html',
         maze=environment.cells,
         width=environment.width,
