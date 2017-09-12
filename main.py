@@ -1,11 +1,12 @@
 import os
-from maze import Maze
+import logging
+from logging.handlers import RotatingFileHandler
 from flask import Flask, request, render_template, jsonify
+from maze import Maze
 
 app = Flask(__name__, static_url_path='/static')
 # to enable pug support in templates instead of jinja2
 app.jinja_env.add_extension('pypugjs.ext.jinja.PyPugJSExtension')
-appContext = app.app_context()
 
 
 # home route, now routing to template using canvas
@@ -46,6 +47,22 @@ def generate_maze():
 
 
 
-port = os.getenv('PORT', '5000')
+# server initialization tasks
+def server_start():
+
+    # setting up log file handler
+    handler = RotatingFileHandler('%s/logs/application.log' % os.path.dirname(os.path.realpath(__file__)), maxBytes=10000, backupCount=1)
+    handler.setLevel(logging.INFO)
+    app.logger.addHandler(handler)
+    
+    # app config from environment variables
+    port = os.getenv('PORT', '5000')
+
+    debug = (lambda x: x in ['True', 'true', 'T', 't', 'TRUE'])(os.getenv('DEBUG', 'True'))
+
+    # and off we go
+    app.run(host='0.0.0.0', port=int(port), debug=debug)
+
+
 if __name__ == "__main__":
-	app.run(host='0.0.0.0', port=int(port), debug=True)
+    server_start()
