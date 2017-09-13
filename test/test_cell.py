@@ -4,11 +4,16 @@ from cell import Cell
 
 class TestCell(unittest.TestCase):
     def setUp(self):
-        pass
+        self.cell = Cell(1, 1)
 
-    def test_single_cell(self):
-        maze = Cell(1, 1)
-        assert True
+    def test_cell_to_string(self):
+        self.assertEqual(str(self.cell), "{'neighbors': '[]'}")
+
+    def test_cell_to_json(self):
+        self.assertEqual(self.cell._json_repr(), {
+            "neighbors": [],
+            "filled": False
+        })
 
 def test_cell():
     suite = unittest.TestLoader().loadTestsFromTestCase(TestCell)

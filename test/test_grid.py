@@ -4,11 +4,24 @@ from grid import Grid
 
 class TestGrid(unittest.TestCase):
     def setUp(self):
-        pass
+        self.grid = Grid(1, 1)
 
-    def test_small_grid(self):
-        maze = Grid(2, 2)
-        assert True
+    def test_grid_to_string(self):
+        self.assertEqual(str(self.grid), """[["{\'neighbors\': \'[]\'}"]]""")
+
+    def test_grid_to_json(self):
+        self.assertEqual(self.grid._json_repr(), {
+            "width": 1,
+            "height": 1,
+            "cells": [
+                [
+                    {
+                        "neighbors": [],
+                        "filled": False
+                    }
+                ]
+            ]
+        })
 
 def test_grid():
     suite = unittest.TestLoader().loadTestsFromTestCase(TestGrid)

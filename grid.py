@@ -21,15 +21,15 @@ class Grid(object):
     """ Magic method
     """
     def __str__(self):
-        return str([map(str, x) for x in self.cells])
+        return str([list(map(str, x)) for x in self.cells])
 
     """ JSON conversion convenience function
     """
-    def _jsonify(self):
+    def _json_repr(self):
         return {
-            "width" : self.width,
-            "height" : self.height,
-            "cells" : [
-                [cell._jsonify() for cell in row]
+            "width": self.width,
+            "height": self.height,
+            "cells": [
+                [cell._json_repr() for cell in row]
             for row in self.cells]
         }

@@ -39,7 +39,7 @@ class Cell(object):
     """ Magic method
     """
     def __str__(self):
-        return str({"nghbrs" : str(self.neighbors)});
+        return str({"neighbors": str(self.neighbors)})
 
 
     """ Magic method
@@ -47,8 +47,8 @@ class Cell(object):
     def __hash__(self):
         return "-".join([self.x, self.y, self.filled])
 
-    def _jsonify(self):
+    def _json_repr(self):
         return {
-            "neighbors" : self.neighbors,
-            "filled" : self.filled
+            "neighbors": self.neighbors,
+            "filled": self.filled
         }

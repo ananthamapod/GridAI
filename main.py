@@ -30,7 +30,7 @@ def maze():
     height = int(request.args.get("width"))
     if width and height:
         environment = Maze(height, width)
-        return jsonify({'maze' : environment._jsonify()})
+        return jsonify({'maze': environment._json_repr()})
 
 
 # old maze endpoint
