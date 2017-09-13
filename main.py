@@ -1,6 +1,7 @@
 import os
 import logging
 from logging.handlers import RotatingFileHandler
+from datetime import datetime
 from flask import Flask, request, render_template, jsonify
 from flask_webpack import Webpack
 from maze import Maze
@@ -23,11 +24,17 @@ def welcome():
 # api endpoint for new mazes
 @app.route('/api/new_maze', methods=["GET"])
 def maze():
-    width = int(request.args.get("height"))
-    height = int(request.args.get("width"))
-    if width and height:
-        environment = Maze(height, width)
-        return jsonify({'maze': environment._json_repr()})
+    width = None
+    height = None
+    try:
+        width = int(request.args.get("height"))
+        height = int(request.args.get("width"))
+    except Exception as e:
+        app.logger.error('New maze attempted with invalid dimensions %s and %d at %s', width, height, str(datetime.today()))
+    else:
+        if width and height:
+            environment = Maze(height, width)
+            return jsonify({'maze': environment._json_repr()})
 
 
 
