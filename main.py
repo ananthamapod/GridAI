@@ -2,10 +2,15 @@ import os
 import logging
 from logging.handlers import RotatingFileHandler
 from flask import Flask, request, render_template, jsonify
+from flask_webpack import Webpack
 from maze import Maze
+
+
+webpack = Webpack()
 
 app = Flask(__name__, static_url_path='/static')
 # to enable pug support in templates instead of jinja2
+webpack.init_app(app)
 app.jinja_env.add_extension('pypugjs.ext.jinja.PyPugJSExtension')
 
 
@@ -13,14 +18,6 @@ app.jinja_env.add_extension('pypugjs.ext.jinja.PyPugJSExtension')
 @app.route('/')
 def welcome():
     return render_template('index.pug')
-
-
-# tester function for testing maze generation in isolation without server
-def main():
-    height = width = 5
-    environment = Maze(height, width)
-    import pdb; pdb.set_trace()
-    print(environment)
 
 
 # api endpoint for new mazes
@@ -31,19 +28,6 @@ def maze():
     if width and height:
         environment = Maze(height, width)
         return jsonify({'maze': environment._json_repr()})
-
-
-# old maze endpoint
-@app.route('/new', methods=["GET"])
-def generate_maze():
-    width = int(request.args.get("height"))
-    height = int(request.args.get("width"))
-    if width and height:
-        environment = Maze(height, width)
-        return render_template('maze.html',
-        maze=environment.cells,
-        width=environment.width,
-        height=environment.height)
 
 
 
