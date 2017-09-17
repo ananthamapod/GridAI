@@ -1,6 +1,6 @@
 var webpack = require('webpack')
 var path = require('path')
-var htmlWebpackPlugin = require('html-webpack-plugin')
+// var htmlWebpackPlugin = require('html-webpack-plugin')
 
 var BUILD_DIR = path.resolve(__dirname, 'static')
 var APP_DIR = path.resolve(__dirname, 'src')
@@ -15,28 +15,34 @@ var config = {
     filename: 'bundle.js'
   },
   module: {
-    preLoaders: [
-      // Javascript
-      { test: /\.js?$/, loader: 'eslint', exclude: /node_modules/ }
-    ],
-    loaders: [
+    rules: [
       {
-        test: /\.js?/,
-        include: APP_DIR,
-        loader: 'babel'
+        enforce: 'pre',
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: 'eslint-loader',
+        query: {
+          failOnWarning: false,
+          failOnError: true
+        }
       },
       {
-        test: /\.scss?/,
+        test: /\.js$/,
         include: APP_DIR,
-        loader: 'style!css!postcss!sass'
+        loader: 'babel-loader'
       },
       {
-        test: /\.css?/,
+        test: /\.scss$/,
+        include: APP_DIR,
+        loader: 'style-loader!css-loader!postcss-loader!sass-loader'
+      },
+      {
+        test: /\.css$/,
         include: '/',
-        loader: 'style!css!postcss'
+        loader: 'style-loader!css-loader!postcss-loader'
       },
       {
-        test: /\.pug|\.jade?/,
+        test: /\.pug$|\.jade$/,
         include: APP_DIR,
         loader: 'pug-loader'
       },
@@ -46,16 +52,12 @@ var config = {
       }
     ]
   },
-  eslint: {
-    failOnWarning: false,
-    failOnError: true
-  },
   plugins : [
-    new htmlWebpackPlugin({
-      template: APP_DIR + '/templates/index.pug',
-      title: 'GridAI - Home',
-      inject: 'body'
-    }),
+    // new htmlWebpackPlugin({
+    //   template: APP_DIR + '/templates/index.pug',
+    //   title: 'GridAI - Home',
+    //   inject: 'body'
+    // }),
     /*
     new webpack.optimize.UglifyJsPlugin({
       beautify : false
@@ -63,7 +65,7 @@ var config = {
     new webpack.ProvidePlugin({
        $: "jquery",
        jQuery: "jquery",
-       Tether: "tether"
+       Popper: ["popper.js", "default"]
     })
   ]
 }

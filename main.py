@@ -7,11 +7,11 @@ from flask_webpack import Webpack
 from maze import Maze
 
 
-webpack = Webpack()
+# webpack = Webpack()
 
 app = Flask(__name__, static_url_path='/static')
 # to enable pug support in templates instead of jinja2
-webpack.init_app(app)
+# webpack.init_app(app)
 app.jinja_env.add_extension('pypugjs.ext.jinja.PyPugJSExtension')
 
 
@@ -45,7 +45,7 @@ def server_start():
     handler = RotatingFileHandler('%s/logs/application.log' % os.path.dirname(os.path.realpath(__file__)), maxBytes=10000, backupCount=1)
     handler.setLevel(logging.INFO)
     app.logger.addHandler(handler)
-    
+
     # app config from environment variables
     port = os.getenv('PORT', '5000')
 
