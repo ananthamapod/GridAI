@@ -1,5 +1,6 @@
 var webpack = require('webpack')
 var path = require('path')
+var ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 const BUILD_DIR = path.resolve(__dirname, '..', 'static')
 const APP_DIR = path.resolve(__dirname, '..', 'src')
@@ -31,12 +32,18 @@ var config = {
       {
         test: /\.scss$/,
         include: APP_DIR,
-        loader: 'style-loader!css-loader!postcss-loader!sass-loader'
+        loader: ExtractTextPlugin.extract({
+          use: ['css-loader', 'postcss-loader', 'sass-loader'],
+          fallback: 'style-loader'
+        })
       },
       {
         test: /\.css$/,
         include: '/',
-        loader: 'style-loader!css-loader!postcss-loader'
+        loader: ExtractTextPlugin.extract({
+          use: ['css-loader', 'postcss-loader'],
+          fallback: 'style-loader'
+        })
       },
       {
         test: /\.pug$|\.jade$/,
@@ -50,6 +57,7 @@ var config = {
     ]
   },
   plugins : [
+    new ExtractTextPlugin("[name].css"),
     new webpack.LoaderOptionsPlugin({
       options: {
         eslint: {
