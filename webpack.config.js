@@ -2,17 +2,19 @@ var webpack = require('webpack')
 var path = require('path')
 // var htmlWebpackPlugin = require('html-webpack-plugin')
 
-var BUILD_DIR = path.resolve(__dirname, 'static')
-var APP_DIR = path.resolve(__dirname, 'src')
+const BUILD_DIR = path.resolve(__dirname, 'static')
+const APP_DIR = path.resolve(__dirname, 'src')
 
 var config = {
-  entry: [
-    'babel-polyfill',
-    APP_DIR + '/index.js'
-  ],
+  entry: {
+    app: [
+      'babel-polyfill',
+      APP_DIR
+    ]
+  },
   output: {
     path: BUILD_DIR,
-    filename: 'bundle.js'
+    filename: '[name].js'
   },
   module: {
     rules: [
@@ -70,4 +72,11 @@ var config = {
   ]
 }
 
-module.exports = config
+// For now, these are the same
+var devConfig = config
+var prodConfig = config
+
+module.exports = (env) => {
+  console.log(`Webpack environment: ${env}`)
+  return env === "production"? prodConfig : devConfig
+}
