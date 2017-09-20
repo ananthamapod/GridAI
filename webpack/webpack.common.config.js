@@ -16,15 +16,6 @@ var config = {
   module: {
     rules: [
       {
-        enforce: 'pre',
-        test: /\.js$/,
-        exclude: /node_modules/,
-        loader: 'eslint-loader',
-        options: {
-          emitWarning: true
-        }
-      },
-      {
         test: /\.js$/,
         include: APP_DIR,
         loader: 'babel-loader'
@@ -33,7 +24,17 @@ var config = {
         test: /\.scss$/,
         include: APP_DIR,
         loader: ExtractTextPlugin.extract({
-          use: ['css-loader', 'postcss-loader', 'sass-loader'],
+          use: [
+            'css-loader',
+            {
+              loader: 'postcss-loader',
+              options: {
+                plugins: () => ([
+                  require('autoprefixer')()
+                ])
+              }
+            },
+            'sass-loader'],
           fallback: 'style-loader'
         })
       },
@@ -41,7 +42,17 @@ var config = {
         test: /\.css$/,
         include: '/',
         loader: ExtractTextPlugin.extract({
-          use: ['css-loader', 'postcss-loader'],
+          use: [
+            'css-loader',
+            {
+              loader: 'postcss-loader',
+              options: {
+                plugins: () => ([
+                  require('autoprefixer')()
+                ])
+              }
+            }
+          ],
           fallback: 'style-loader'
         })
       },

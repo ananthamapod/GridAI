@@ -19,6 +19,7 @@ body.theme-dark {
     color: #ccc;
     transition: .4s;
   }
+
   label.theme-label {
     color: #ccc;
 
@@ -39,9 +40,10 @@ body.theme-dark {
 #maze_form {
   display: flex;
   text-align: center;
-  font-family:'sans-serif';
+  font-family: 'sans-serif';
   margin: 1em;
 }
+
 button.btn {
   cursor: pointer;
 }
@@ -63,7 +65,7 @@ label.theme-label {
 
   /* Hide default HTML checkbox */
   input {
-    display:none;
+    display: none;
   }
 }
 
@@ -90,6 +92,7 @@ label.theme-label {
     -webkit-transition: .4s;
     transition: .4s;
   }
+
   /* Rounded sliders */
   &.round {
     border-radius: 34px;
@@ -146,18 +149,23 @@ input:checked + .slider:before {
       border: 2px solid black;
       position: relative;
     }
+
     .right {
       border-right: 2px solid #777;
     }
+
     .left {
       border-left: 2px solid #777;
     }
+
     .top {
       border-top: 2px solid #777;
     }
+
     .bottom {
       border-bottom: 2px solid #777;
     }
+
     .current {
       background-color: #1C86EE;
     }
@@ -167,10 +175,12 @@ input:checked + .slider:before {
       text-transform: uppercase;
       padding: 1em;
     }
+
     .start::before {
       background: rgba(0,255,0, 0.6);
       content: "start";
     }
+
     .end::after {
       background: rgba(255,0,0, 0.6);
       content: "end";
