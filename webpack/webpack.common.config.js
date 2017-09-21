@@ -1,11 +1,12 @@
-var webpack = require('webpack')
-var path = require('path')
-var ExtractTextPlugin = require('extract-text-webpack-plugin')
+const webpack = require('webpack')
+const path = require('path')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
+// const ManifestRevisionPlugin = require('manifest-revision-webpack-plugin')
 
 const BUILD_DIR = path.resolve(__dirname, '..', 'static')
 const APP_DIR = path.resolve(__dirname, '..', 'src')
 
-var config = {
+const config = {
   entry: {
     vendor: ['jquery', 'bootstrap'],
     app: ['babel-polyfill', APP_DIR]
@@ -82,6 +83,10 @@ var config = {
       name: "manifest",
       minChunks: Infinity
     }),
+    // new ManifestRevisionPlugin(path.join('static', 'manifest.json'), {
+    //   rootAssetPath: './static',
+    //   ignorePaths: ['/css', '/js'],
+    // }),
     new webpack.LoaderOptionsPlugin({
       options: {
         eslint: {

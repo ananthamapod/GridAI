@@ -4,6 +4,7 @@ html(lang='en')
     meta(charset='utf-8')
     meta(name='viewport', content='width=device-width, initial-scale=1, shrink-to-fit=no')
     title GridAI
+    //- link(rel='stylesheet', href=stylesheet_tag('app.css'), media='screen', title='no title', charset='utf-8')
     link(rel='stylesheet', href=url_for('static', filename='app.css'), media='screen', title='no title', charset='utf-8')
   body
     .container-fluid
@@ -31,7 +32,9 @@ html(lang='en')
               span.slider.round
       .maze
         //- canvas#canvas(width='500', height='300')
-    //- script(src=javascript_tag('index.js'), charset='utf-8')
+    //- script(src=javascript_tag('manifest.js'), charset='utf-8')
+    //- script(src=javascript_tag('vendor.js'), charset='utf-8')
+    //- script(src=javascript_tag('app.js'), charset='utf-8')
     script(src=url_for('static', filename='manifest.js'), charset='utf-8')
     script(src=url_for('static', filename='vendor.js'), charset='utf-8')
     script(src=url_for('static', filename='app.js'), charset='utf-8')

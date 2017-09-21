@@ -7,13 +7,14 @@ from flask_webpack import Webpack
 from maze import Maze
 
 
-# webpack = Webpack()
-
 app = Flask(__name__, static_url_path='/static')
 # to enable pug support in templates instead of jinja2
-# webpack.init_app(app)
 app.jinja_env.add_extension('pypugjs.ext.jinja.PyPugJSExtension')
 
+# setting config before app start because Flask-Webpack is unhappy
+# app.config['WEBPACK_MANIFEST_PATH'] = os.getenv('WEBPACK_MANIFEST_PATH', './static/manifest.json')
+# app.config['WEBPACK_ASSETS_URL'] = os.getenv('WEBPACK_ASSETS_URL', 'http://localhost:5000/static')
+# webpack = Webpack(app)
 
 # home route, now routing to template using canvas
 @app.route('/')
