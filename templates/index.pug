@@ -32,4 +32,6 @@ html(lang='en')
       .maze
         //- canvas#canvas(width='500', height='300')
     //- script(src=javascript_tag('index.js'), charset='utf-8')
+    script(src=url_for('static', filename='manifest.js'), charset='utf-8')
+    script(src=url_for('static', filename='vendor.js'), charset='utf-8')
     script(src=url_for('static', filename='app.js'), charset='utf-8')

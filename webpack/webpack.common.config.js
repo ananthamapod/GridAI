@@ -7,6 +7,7 @@ const APP_DIR = path.resolve(__dirname, '..', 'src')
 
 var config = {
   entry: {
+    vendor: ['jquery', 'bootstrap'],
     app: ['babel-polyfill', APP_DIR]
   },
   output: {
@@ -69,6 +70,18 @@ var config = {
   },
   plugins : [
     new ExtractTextPlugin("[name].css"),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: "vendor",
+      minChunks: ({resource}) => (
+        resource &&
+        resource.indexOf('node_modules') >= 0 &&
+        resource.match(/\.js$/)
+      )
+    }),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: "manifest",
+      minChunks: Infinity
+    }),
     new webpack.LoaderOptionsPlugin({
       options: {
         eslint: {
@@ -77,6 +90,11 @@ var config = {
           fix: true
         }
       }
+    }),
+    new webpack.ProvidePlugin({
+       $: "jquery",
+       jQuery: "jquery",
+       Popper: "popper.js"
     })
   ]
 }

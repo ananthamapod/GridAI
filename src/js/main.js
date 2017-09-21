@@ -15,7 +15,7 @@ function toggle_theme() {
 function create_cell_from_edges(cell) {
   let $cellElem = $("<div/>", {"class": "cell"})
 
-  for (let neighbor of cell.nghbrs) {
+  for (let neighbor of cell.neighbors) {
     if (neighbor[0] == 0 && neighbor[1] == 1) {
       $cellElem.addClass("right")
     }
