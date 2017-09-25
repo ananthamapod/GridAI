@@ -1,6 +1,8 @@
 # GridWorld
 >This is a full environment for practice with building AIs in grid environments. It also has a web interface built with Flask
 
+![gridaiscreenshot](https://user-images.githubusercontent.com/5254722/30815660-cc777958-a1e1-11e7-82e2-a1b92478289f.png)
+
 ---
 
 ## Setup
