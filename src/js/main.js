@@ -1,8 +1,13 @@
 import $ from "jquery"
+import Player from "./Player"
+import AStar from "./AStar"
+import BFS from "./BFS"
+import DFS from "./DFS"
 
 let maze = {}
 let width = 0, height = 0
-let x = 0, y = 0
+let player = new Player()
+let agents = []
 
 function toggle_theme() {
   if($(this).is(":checked")) {
@@ -50,50 +55,38 @@ function build_maze() {
 function request_maze() {
   width = $('[name=width]').val()
   height = $('[name=height]').val()
-  $.get('/api/new_maze?' + 'width=' + width + '&height=' + height, function(response) {
-    x = y = 0
+  $.get(`/api/new_maze?width=${width}&height=${height}`, function(response) {
     maze = response.maze
     build_maze()
+    player.reset()
+    agents.length = 0
+    agents.push(new DFS(maze), new BFS(maze), new AStar(maze))
     return true
   })
   return false
 }
 
-function move_player(event) {
-  const currentSquare = $(".cell.current")
-
+function keyInput(event) {
   switch (event.keyCode) {
     // left
     case 97:
     case 65:
-      if (currentSquare.hasClass("left")) {
-        x--
-        currentSquare.removeClass("current")
-      }
+      player.move("left")
       break
     // top
     case 119:
     case 87:
-      if (currentSquare.hasClass("top")) {
-        y--
-        currentSquare.removeClass("current")
-      }
+      player.move("up")
       break
     // right
     case 100:
     case 68:
-      if (currentSquare.hasClass("right")) {
-        x++
-        currentSquare.removeClass("current")
-      }
+      player.move("right")
       break
     // bottom
     case 115:
     case 83:
-      if (currentSquare.hasClass("bottom")) {
-        y++
-        currentSquare.removeClass("current")
-      }
+      player.move("down")
       break
     case 32:
     case 37:
@@ -105,13 +98,11 @@ function move_player(event) {
     default:
 
   }
-
-  $(".cell").eq(y*width+x).addClass("current")
 }
 
 function main() {
   $('#maze_form form').submit(request_maze)
-  $(document).on("keypress", move_player)
+  $(document).on("keypress", keyInput)
   $('input[name=theme]').change(toggle_theme)
 }
 
