@@ -9,9 +9,6 @@ class DFS extends SearchAlgorithm {
   setSearchPath() {
     const yMax = this.maze.height - 1
     const xMax = this.maze.width - 1
-    const visited = new Array(this.maze.height).fill(null)
-      .map(() => new Array(this.maze.width)
-        .fill(false))
     let fringe = [[0,0]]
     let searchPath = []
     let currentCell = undefined
@@ -24,9 +21,9 @@ class DFS extends SearchAlgorithm {
         break
       }
       currentCell = this.maze.cells[y][x]
-      if (!visited[y][x]) {
+      if (!currentCell.visited) {
         searchPath.push(coords)
-        visited[y][x] = true
+        currentCell.visited = true
         fringe.push(...(currentCell.neighbors.map(elem => [y + elem[0], x + elem[1]])))
       }
     }
