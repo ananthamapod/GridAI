@@ -13,7 +13,7 @@ const config = {
   },
   output: {
     path: BUILD_DIR,
-    filename: '[name].js'
+    filename: 'js/[name].js'
   },
   module: {
     rules: [
@@ -70,7 +70,7 @@ const config = {
     ]
   },
   plugins : [
-    new ExtractTextPlugin("[name].css"),
+    new ExtractTextPlugin("css/[name].css"),
     new webpack.optimize.CommonsChunkPlugin({
       name: "vendor",
       minChunks: ({resource}) => (
