@@ -1,9 +1,23 @@
 import SearchAlgorithm from "./SearchAlgorithm"
 
-class DFS extends SearchAlgorithm {
+class BestFirst extends SearchAlgorithm {
   constructor(maze) {
     super(maze)
+    this.setInitialValues()
     this.setSearchPath()
+  }
+
+  h(cell) {
+    return Math.sqrt(Math.pow((this.maze.height - cell.y), 2)
+      + Math.pow((this.maze.height - cell.x), 2))
+  }
+
+  setInitialValues() {
+    this.maze.cells.forEach((row) =>
+      row.forEach((cell) =>
+        cell.h = this.h(cell)
+      )
+    )
   }
 
   setSearchPath() {
@@ -12,7 +26,7 @@ class DFS extends SearchAlgorithm {
     let fringe = [this.maze.cells[0][0]]
     let searchPath = []
     while(fringe.length > 0) {
-      let currentCell = fringe.pop()
+      let currentCell = fringe.shift()
       let y = currentCell.y
       let x = currentCell.x
       if (y == yMax && x == xMax) {
@@ -23,11 +37,12 @@ class DFS extends SearchAlgorithm {
         searchPath.push([y, x])
         currentCell.visited = true
         fringe.push(...(currentCell.neighbors))
+        fringe.sort((a, b) => b.h - a.h)
       }
     }
     console.log(searchPath)
   }
 }
 
-export default DFS
-export { DFS }
+export default BestFirst
+export { BestFirst }

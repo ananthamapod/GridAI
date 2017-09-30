@@ -9,22 +9,20 @@ class BFS extends SearchAlgorithm {
   setSearchPath() {
     const yMax = this.maze.height - 1
     const xMax = this.maze.width - 1
-    let fringe = [[0,0]]
+    let fringe = [this.maze.cells[0][0]]
     let searchPath = []
-    let currentCell = undefined
     while(fringe.length > 0) {
-      let coords = fringe.shift ()
-      let y = coords[0]
-      let x = coords[1]
+      let currentCell = fringe.shift()
+      let y = currentCell.y
+      let x = currentCell.x
       if (y == yMax && x == xMax) {
-        searchPath.push(coords)
+        searchPath.push([y, x])
         break
       }
-      currentCell = this.maze.cells[y][x]
       if (!currentCell.visited) {
-        searchPath.push(coords)
+        searchPath.push([y, x])
         currentCell.visited = true
-        fringe.push(...(currentCell.neighbors.map(elem => [y + elem[0], x + elem[1]])))
+        fringe.push(...(currentCell.neighbors))
       }
     }
     console.log(searchPath)

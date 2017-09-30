@@ -1,10 +1,14 @@
 class SearchAlgorithm {
   constructor(maze) {
     this.maze = JSON.parse(JSON.stringify(maze))
-    this.maze.cells.forEach((row) =>
-      row.forEach((cell) =>
+    this.maze.cells.forEach((row, rowNum) =>
+      row.forEach((cell, columnNum) => {
         cell.visited = false
-      )
+        cell.h = Infinity
+        cell.g = 0
+        cell.y = rowNum
+        cell.x = columnNum
+      })
     )
   }
 }
