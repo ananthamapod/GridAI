@@ -1,8 +1,8 @@
 import $ from "jquery"
 import Player from "./Player"
-import AStar from "./AStar"
 import BFS from "./BFS"
 import DFS from "./DFS"
+import BestFirst from "./BestFirst"
 
 let maze = {}
 let width = 0, height = 0
@@ -60,7 +60,7 @@ function request_maze() {
     build_maze()
     player.reset()
     agents.length = 0
-    agents.push(new DFS(maze), new BFS(maze), new AStar(maze))
+    agents.push(new DFS(maze), new BFS(maze), new BestFirst(maze))
     return true
   })
   return false

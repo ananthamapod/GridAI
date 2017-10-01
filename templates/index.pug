@@ -5,7 +5,7 @@ html(lang='en')
     meta(name='viewport', content='width=device-width, initial-scale=1, shrink-to-fit=no')
     title GridAI
     //- link(rel='stylesheet', href=stylesheet_tag('app.css'), media='screen', title='no title', charset='utf-8')
-    link(rel='stylesheet', href=url_for('static', filename='app.css'), media='screen', title='no title', charset='utf-8')
+    link(rel='stylesheet', href=url_for('static', filename='css/app.css'), media='screen', title='no title', charset='utf-8')
   body
     .container-fluid
       .container
@@ -35,6 +35,6 @@ html(lang='en')
     //- script(src=javascript_tag('manifest.js'), charset='utf-8')
     //- script(src=javascript_tag('vendor.js'), charset='utf-8')
     //- script(src=javascript_tag('app.js'), charset='utf-8')
-    script(src=url_for('static', filename='manifest.js'), charset='utf-8')
-    script(src=url_for('static', filename='vendor.js'), charset='utf-8')
-    script(src=url_for('static', filename='app.js'), charset='utf-8')
+    script(src=url_for('static', filename='js/manifest.js'), charset='utf-8')
+    script(src=url_for('static', filename='js/vendor.js'), charset='utf-8')
+    script(src=url_for('static', filename='js/app.js'), charset='utf-8')

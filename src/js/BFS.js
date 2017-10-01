@@ -22,7 +22,8 @@ class BFS extends SearchAlgorithm {
       if (!currentCell.visited) {
         searchPath.push([y, x])
         currentCell.visited = true
-        fringe.push(...(currentCell.neighbors))
+        fringe.push(...(currentCell.neighbors
+          .map((coords) => this.maze.cells[y + coords[0]][x + coords[1]])))
       }
     }
     console.log(searchPath)
