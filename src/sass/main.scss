@@ -1,3 +1,26 @@
+/*********** CONSTANTS ************/
+$player: #1C86EE;
+$dfs: #FF6666;
+$bfs: #FBB829;
+$bestfirst: #008000;
+
+/**********************************/
+
+/************ MIXINS **************/
+@mixin alpha-attribute($attribute, $color, $background) {
+  $percent: alpha($color) * 100%;
+  $opaque: opacify($color, 1);
+  $solid-color: mix($opaque, $background, $percent);
+  #{$attribute}: $solid-color;
+  #{$attribute}: $color;
+}
+
+@mixin alpha-background($color, $background) {
+  @include alpha-attribute('background', $color, $background);
+}
+
+/**********************************/
+
 /****** OVERALL BODY STYLES *******/
 html, body {
   margin: 0;
@@ -167,23 +190,57 @@ input:checked + .slider:before {
     }
 
     .current {
-      background-color: #1C86EE;
+      background-color: $player;
+
+      &.start, &.end {
+        @include alpha-background(rgba($player, 0.8), white);
+      }
+    }
+
+    .dfs {
+      background-color: $dfs;
+
+      &.start, &.end {
+        @include alpha-background(rgba($dfs, 0.8), white);
+      }
+    }
+
+    .bfs {
+      background-color: $bfs;
+
+      &.start, &.end {
+        @include alpha-background(rgba($bfs, 0.8), white);
+      }
+    }
+
+    .bestfirst {
+      background-color: $bestfirst;
+
+      &.start, &.end {
+        @include alpha-background(rgba($bestfirst, 0.8), white);
+      }
     }
 
     .start::before, .end::after {
       color: ghostwhite;
-      text-transform: uppercase;
-      padding: 1em;
+      // text-transform: uppercase;
+      position: absolute;
+      width: 0;
+      height: 0;
+      left: 0;
+      top: 0;
     }
 
     .start::before {
-      background: rgba(0,255,0, 0.6);
-      content: "start";
+      content: "";
+      border-top: 98px solid rgba(0, 255, 0, 0.6);
+      border-right: 98px solid transparent;
     }
 
     .end::after {
-      background: rgba(255,0,0, 0.6);
-      content: "end";
+      content: "";
+      border-bottom: 98px solid rgba(255, 0, 0, 0.6);
+      border-left: 98px solid transparent;
     }
   }
 }
