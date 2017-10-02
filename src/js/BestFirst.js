@@ -3,7 +3,6 @@ import SearchAlgorithm from "./SearchAlgorithm"
 class BestFirst extends SearchAlgorithm {
   constructor(maze) {
     super(maze)
-    console.log("here")
     this.setInitialValues()
     this.setSearchPath()
   }
@@ -34,7 +33,6 @@ class BestFirst extends SearchAlgorithm {
         searchPath.push([y, x])
         break
       }
-      console.log("something")
       if (!currentCell.visited) {
         searchPath.push([y, x])
         currentCell.visited = true
