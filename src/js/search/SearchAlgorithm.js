@@ -5,7 +5,7 @@ class SearchAlgorithm {
       row.forEach((cell, columnNum) => {
         cell.visited = false
         cell.h = Infinity
-        cell.g = 0
+        cell.g = Infinity
         cell.y = rowNum
         cell.x = columnNum
       })
