@@ -27,6 +27,7 @@ class BFS extends SearchAlgorithm {
       }
     }
     console.log(searchPath)
+    this.searchPath = searchPath
   }
 }
 

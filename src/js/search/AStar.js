@@ -51,6 +51,7 @@ class AStar extends SearchAlgorithm {
       }
     }
     console.log(searchPath)
+    this.searchPath = searchPath
   }
 }
 

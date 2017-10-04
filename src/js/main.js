@@ -1,13 +1,13 @@
 import $ from "jquery"
-import Player from "./Player"
-import BFS from "./search/BFS"
-import DFS from "./search/DFS"
-import BestFirst from "./search/BestFirst"
-import AStar from "./search/AStar"
+import UserPlayer from "./players/UserPlayer"
+import BFSAgent from "./players/BFSAgent"
+import DFSAgent from "./players/DFSAgent"
+import BestFirstAgent from "./players/BestFirstAgent"
+import AStarAgent from "./players/AStarAgent"
 
 let maze = {}
 let width = 0, height = 0
-let player = new Player()
+let player = new UserPlayer("current")
 let agents = []
 
 function toggle_theme() {
@@ -48,7 +48,13 @@ function build_maze() {
     }
     $canvas.append($rowElem)
   }
-  $canvas.find(".cell").eq(0).addClass("current").addClass("start")
+  $canvas.find(".cell").eq(0)
+    .addClass("current")
+    .addClass("bfs")
+    .addClass("dfs")
+    .addClass("bestfirst")
+    .addClass("astar")
+    .addClass("start")
   $canvas.find(".cell").eq(-1).addClass("end")
   $(".maze").html($canvas)
 }
@@ -61,7 +67,11 @@ function request_maze() {
     build_maze()
     player.reset()
     agents.length = 0
-    agents.push(new DFS(maze), new BFS(maze), new BestFirst(maze), new AStar(maze))
+    agents.push(new DFSAgent("dfs", maze),
+      new BFSAgent("bfs", maze),
+      new BestFirstAgent("bestfirst", maze),
+      new AStarAgent("astar", maze)
+    )
     return true
   })
   return false
@@ -73,21 +83,25 @@ function keyInput(event) {
     case 97:
     case 65:
       player.move("left")
+      agents.forEach((agent) => agent.move())
       break
     // top
     case 119:
     case 87:
       player.move("up")
+      agents.forEach((agent) => agent.move())
       break
     // right
     case 100:
     case 68:
       player.move("right")
+      agents.forEach((agent) => agent.move())
       break
     // bottom
     case 115:
     case 83:
       player.move("down")
+      agents.forEach((agent) => agent.move())
       break
     case 32:
     case 37:

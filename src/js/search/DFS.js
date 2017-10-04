@@ -27,6 +27,7 @@ class DFS extends SearchAlgorithm {
       }
     }
     console.log(searchPath)
+    this.searchPath = searchPath
   }
 }
 

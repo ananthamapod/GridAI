@@ -3,6 +3,7 @@ $player: #1C86EE;
 $dfs: #FF6666;
 $bfs: #FBB829;
 $bestfirst: #008000;
+$astar: #8e44ad;
 
 /**********************************/
 
@@ -218,6 +219,14 @@ input:checked + .slider:before {
 
       &.start, &.end {
         @include alpha-background(rgba($bestfirst, 0.8), white);
+      }
+    }
+
+    .astar {
+      background-color: $astar;
+
+      &.start, &.end {
+        @include alpha-background(rgba($astar, 0.8), white);
       }
     }
 

@@ -42,6 +42,7 @@ class BestFirst extends SearchAlgorithm {
       }
     }
     console.log(searchPath)
+    this.searchPath = searchPath
   }
 }
 
