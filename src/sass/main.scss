@@ -1,4 +1,7 @@
 /*********** CONSTANTS ************/
+$start: #27ae60;
+$end: #c0392b;
+
 $player: #1C86EE;
 $dfs: #FF6666;
 $bfs: #FBB829;
@@ -230,27 +233,39 @@ input:checked + .slider:before {
       }
     }
 
-    .start::before, .end::after {
-      color: ghostwhite;
-      // text-transform: uppercase;
-      position: absolute;
-      width: 0;
-      height: 0;
-      left: 0;
-      top: 0;
+    .start {
+      box-shadow: -5px -5px 0px 4px $start;
+      border-top-width: 0;
+      border-left-width: 0;
     }
 
-    .start::before {
-      content: "";
-      border-top: 98px solid rgba(0, 255, 0, 0.6);
-      border-right: 98px solid transparent;
+    .end {
+      box-shadow: 5px 5px 0px 4px $end;
+      border-bottom-width: 0;
+      border-right-width: 0;
     }
 
-    .end::after {
-      content: "";
-      border-bottom: 98px solid rgba(255, 0, 0, 0.6);
-      border-left: 98px solid transparent;
-    }
+    // .start::before, .end::after {
+    //   color: ghostwhite;
+    //   // text-transform: uppercase;
+    //   position: absolute;
+    //   width: 0;
+    //   height: 0;
+    //   left: 0;
+    //   top: 0;
+    // }
+    //
+    // .start::before {
+    //   content: "";
+    //   border-top: 98px solid rgba(0, 255, 0, 0.6);
+    //   border-right: 98px solid transparent;
+    // }
+    //
+    // .end::after {
+    //   content: "";
+    //   border-bottom: 98px solid rgba(255, 0, 0, 0.6);
+    //   border-left: 98px solid transparent;
+    // }
   }
 }
 

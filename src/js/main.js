@@ -5,10 +5,13 @@ import DFSAgent from "./players/DFSAgent"
 import BestFirstAgent from "./players/BestFirstAgent"
 import AStarAgent from "./players/AStarAgent"
 
+const MODES = {A: "CASUAL", B: "TIMED", C: "HYPERTIME"}
 let maze = {}
 let width = 0, height = 0
 let player = new UserPlayer("current")
 let agents = []
+let mode = MODES.A
+let playerMove = undefined
 
 function toggle_theme() {
   if($(this).is(":checked")) {
@@ -59,6 +62,12 @@ function build_maze() {
   $(".maze").html($canvas)
 }
 
+function move() {
+  player.move(playerMove)
+  agents.forEach((agent) => agent.move())
+  playerMove = undefined
+}
+
 function request_maze() {
   width = $('[name=width]').val()
   height = $('[name=height]').val()
@@ -72,6 +81,15 @@ function request_maze() {
       new BestFirstAgent("bestfirst", maze),
       new AStarAgent("astar", maze)
     )
+    if (mode != MODES.A) {
+      let interval = {}
+      interval.id = setInterval(() => {
+        move()
+        if(player.x == width - 1 && player.y == height - 1) {
+          clearInterval(interval.id)
+        }
+      }, mode == MODES.B? 1000 : 250)
+    }
     return true
   })
   return false
@@ -82,26 +100,22 @@ function keyInput(event) {
     // left
     case 97:
     case 65:
-      player.move("left")
-      agents.forEach((agent) => agent.move())
+      playerMove = "left"
       break
     // top
     case 119:
     case 87:
-      player.move("up")
-      agents.forEach((agent) => agent.move())
+      playerMove = "up"
       break
     // right
     case 100:
     case 68:
-      player.move("right")
-      agents.forEach((agent) => agent.move())
+      playerMove = "right"
       break
     // bottom
     case 115:
     case 83:
-      player.move("down")
-      agents.forEach((agent) => agent.move())
+      playerMove = "down"
       break
     case 32:
     case 37:
@@ -112,6 +126,9 @@ function keyInput(event) {
       break
     default:
 
+  }
+  if (mode == MODES.A) {
+    move()
   }
 }
 
