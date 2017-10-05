@@ -15,21 +15,52 @@ html(lang='en')
     .container-fluid
       .container
         #maze_form.justify-content-between
-          form.form-inline
-            label.sr-only(for='width') Width
-            .input-group.mb-2.mr-sm-2.mb-sm-0
-              .input-group-addon Width&nbsp;
-              input.form-control(type='text', name='width')
-            label.sr-only(for='height') Height
-            .input-group.mb-2.mr-sm-2.mb-sm-0
-              .input-group-addon Height
-              input.form-control(type='text', name='height')
-            button.btn.btn-success(type='submit') Generate
+          form
+            .row
+              .col-12.col-md-8.form-inline
+                label.sr-only(for='width') Width
+                .input-group.mb-2.mr-sm-2.mb-sm-0
+                  .input-group-addon Width&nbsp;
+                  input.form-control(type='text', name='width')
+                label.sr-only(for='height') Height
+                .input-group.mb-2.mr-sm-2.mb-sm-0
+                  .input-group-addon Height
+                  input.form-control(type='text', name='height')
+                h4 MODE
+                .form-inline
+                  .form-check.form-check-inline
+                    label.form-check-label
+                      input.form-check-input(type='radio', name='mode', value='casual')
+                      |  Casual
+                  .form-check.form-check-inline
+                    label.form-check-label
+                      input.form-check-input(type='radio', name='mode', value='timed')
+                      |  Timed
+                  .form-check.form-check-inline
+                    label.form-check-label
+                      input.form-check-input(type='radio', name='mode', value='hypertime')
+                      |  Hypertime
+              .col.col-md
+                button.btn.btn-success(type='submit') Generate
           span
             label.theme-label Theme:
             label.switch
               input(name='theme', type='checkbox')
               span.slider.round
+      .container
+        #legend.row.justify-content-between
+          .col-12.col-md-6.col-lg-3
+            .legend-swatch.dfs
+            .legend-title Depth First Search
+          .col-12.col-md-6.col-lg-3
+            .legend-swatch.bfs
+            .legend-title Breadth First Search
+          .col-12.col-md-6.col-lg-3
+            .legend-swatch.bestfirst
+            .legend-title Best First Search
+          .col-12.col-md-6.col-lg-3
+            .legend-swatch.astar
+            .legend-title A* Search
       .maze
         //- canvas#canvas(width='500', height='300')
     //- script(src=javascript_tag('manifest.js'), charset='utf-8')
