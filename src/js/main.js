@@ -98,30 +98,30 @@ function request_maze() {
 function keyInput(event) {
   switch (event.keyCode) {
     // left
-    case 97:
+    case 37:
     case 65:
       playerMove = "left"
+      event.preventDefault()
       break
     // top
-    case 119:
+    case 38:
     case 87:
       playerMove = "up"
+      event.preventDefault()
       break
     // right
-    case 100:
+    case 39:
     case 68:
       playerMove = "right"
+      event.preventDefault()
       break
     // bottom
-    case 115:
+    case 40:
     case 83:
       playerMove = "down"
+      event.preventDefault()
       break
     case 32:
-    case 37:
-    case 38:
-    case 39:
-    case 40:
       event.preventDefault()
       break
     default:
@@ -134,7 +134,7 @@ function keyInput(event) {
 
 function main() {
   $('#maze_form form').submit(request_maze)
-  $(document).on("keypress", keyInput)
+  $(document).on("keydown", keyInput)
   $('input[name=theme]').change(toggle_theme)
 }
 
