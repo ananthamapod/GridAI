@@ -12,7 +12,7 @@ html(lang='en')
         header
           h1 Welcome to GridAI
           p Control the player using the arrow keys or WASD and get to the bottom of the maze
-        span.float-right
+        span.float-right.theme-toggle
           label.theme-label Theme:
           label.switch
             input(name='theme', type='checkbox')
@@ -34,7 +34,7 @@ html(lang='en')
                     .input-group.mb-2.mr-sm-2.mb-sm-0
                       .input-group-addon Height
                       input.form-control(type='text', name='height')
-                  .col-12.form-inline
+                  .col-12.form-inline.modes
                     strong mode
                     .form-check.form-check-inline
                       label.form-check-label
