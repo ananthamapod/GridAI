@@ -5,13 +5,15 @@ import DFSAgent from "./players/DFSAgent"
 import BestFirstAgent from "./players/BestFirstAgent"
 import AStarAgent from "./players/AStarAgent"
 
-const MODES = {A: "CASUAL", B: "TIMED", C: "HYPERTIME"}
+const MODES = {CASUAL: 0, TIMED: 1, HYPERTIME: 2}
+Object.keys(MODES).forEach((mode) => MODES[mode.toLowerCase()] = MODES[mode])
 let maze = {}
 let width = 0, height = 0
 let player = new UserPlayer("current")
 let agents = []
 let mode = MODES.A
 let playerMove = undefined
+let intervalId = undefined
 
 function toggle_theme() {
   if($(this).is(":checked")) {
@@ -62,6 +64,20 @@ function build_maze() {
   $(".maze").html($canvas)
 }
 
+function resetQuantities() {
+  player.reset()
+  playerMove = undefined
+  agents.length = 0
+  if (intervalId) {
+    clearInterval(intervalId)
+  }
+  agents.push(new DFSAgent("dfs", maze),
+    new BFSAgent("bfs", maze),
+    new BestFirstAgent("bestfirst", maze),
+    new AStarAgent("astar", maze)
+  )
+}
+
 function move() {
   player.move(playerMove)
   agents.forEach((agent) => agent.move())
@@ -71,22 +87,17 @@ function move() {
 function request_maze() {
   width = $('[name=width]').val()
   height = $('[name=height]').val()
+  mode = MODES[$('[name=mode]:checked').val()] || MODES.CASUAL
   $.get(`/api/new_maze?width=${width}&height=${height}`, function(response) {
     maze = response.maze
     build_maze()
-    player.reset()
-    agents.length = 0
-    agents.push(new DFSAgent("dfs", maze),
-      new BFSAgent("bfs", maze),
-      new BestFirstAgent("bestfirst", maze),
-      new AStarAgent("astar", maze)
-    )
-    if (mode != MODES.A) {
-      let interval = {}
-      interval.id = setInterval(() => {
+
+    resetQuantities()
+    if (mode != MODES.CASUAL) {
+      intervalId = setInterval(() => {
         move()
         if(player.x == width - 1 && player.y == height - 1) {
-          clearInterval(interval.id)
+          clearInterval(intervalId)
         }
       }, mode == MODES.B? 1000 : 250)
     }
@@ -123,11 +134,10 @@ function keyInput(event) {
       break
     case 32:
       event.preventDefault()
-      break
     default:
-
+      return
   }
-  if (mode == MODES.A) {
+  if (mode == MODES.CASUAL) {
     move()
   }
 }

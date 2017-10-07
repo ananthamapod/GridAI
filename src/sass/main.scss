@@ -11,6 +11,15 @@ $astar: #8e44ad;
 /**********************************/
 
 /************ MIXINS **************/
+@mixin stripe($color1, $color2, $color3: $color1, $color4: $color2, $angle: 45deg) {
+  background: repeating-linear-gradient(
+  $angle,
+  $color1,
+  $color2 10px,
+  $color3 10px,
+  $color4 20px);
+}
+
 @mixin alpha-attribute($attribute, $color, $background) {
   $percent: alpha($color) * 100%;
   $opaque: opacify($color, 1);
@@ -30,6 +39,7 @@ html, body {
   margin: 0;
   padding: 0;
   font-family: 'Liberation Sans', sans-serif;
+  font-size: 16px;
   min-height: 100%;
 }
 
@@ -58,6 +68,11 @@ body.theme-dark {
   .maze {
     background: #313131;
   }
+
+  #legend {
+    background: #313131;
+    color: ghostwhite;
+  }
 }
 
 /**********************************/
@@ -69,14 +84,15 @@ body.theme-dark {
   text-align: center;
   font-family: sans-serif;
   margin: 1em;
-}
 
-button.btn {
-  cursor: pointer;
+  button.btn {
+    cursor: pointer;
+  }
 }
 
 label.theme-label {
   color: #333;
+  display: block;
 
   &::after {
     content: "light";
@@ -171,22 +187,22 @@ input:checked + .slider:before {
       width: 100px;
       height: 100px;
       margin: 0;
-      background: #666;
+      background: #777;
       display: inline-block;
       border: 2px solid black;
       position: relative;
     }
 
     .right {
-      border-right: 2px solid #777;
+      border-right: 2px solid #888;
     }
 
     .left {
-      border-left: 2px solid #777;
+      border-left: 2px solid #888;
     }
 
     .top {
-      border-top: 2px solid #777;
+      border-top: 2px solid #888;
     }
 
     .bottom {
@@ -195,42 +211,22 @@ input:checked + .slider:before {
 
     .current {
       background-color: $player;
-
-      &.start, &.end {
-        @include alpha-background(rgba($player, 0.8), white);
-      }
     }
 
     .dfs {
       background-color: $dfs;
-
-      &.start, &.end {
-        @include alpha-background(rgba($dfs, 0.8), white);
-      }
-    }
-
-    .bfs {
-      background-color: $bfs;
-
-      &.start, &.end {
-        @include alpha-background(rgba($bfs, 0.8), white);
-      }
     }
 
     .bestfirst {
       background-color: $bestfirst;
-
-      &.start, &.end {
-        @include alpha-background(rgba($bestfirst, 0.8), white);
-      }
     }
 
     .astar {
       background-color: $astar;
+    }
 
-      &.start, &.end {
-        @include alpha-background(rgba($astar, 0.8), white);
-      }
+    .bfs {
+      background-color: $bfs;
     }
 
     .start {
@@ -244,28 +240,45 @@ input:checked + .slider:before {
       border-bottom-width: 0;
       border-right-width: 0;
     }
+  }
+}
 
-    // .start::before, .end::after {
-    //   color: ghostwhite;
-    //   // text-transform: uppercase;
-    //   position: absolute;
-    //   width: 0;
-    //   height: 0;
-    //   left: 0;
-    //   top: 0;
-    // }
-    //
-    // .start::before {
-    //   content: "";
-    //   border-top: 98px solid rgba(0, 255, 0, 0.6);
-    //   border-right: 98px solid transparent;
-    // }
-    //
-    // .end::after {
-    //   content: "";
-    //   border-bottom: 98px solid rgba(255, 0, 0, 0.6);
-    //   border-left: 98px solid transparent;
-    // }
+/**********************************/
+
+
+/************* LEGEND *************/
+#legend {
+  position: relative;
+  margin: 1em;
+  border-radius: 2em;
+  padding: 1em;
+  background: #f1f1f1;
+  transition: .4s;
+
+  .legend-swatch {
+    height: 1.3em;
+    width: 1.3em;
+    border-radius: 0.7em;
+
+    &.current {
+      background-color: $player;
+    }
+
+    &.dfs {
+      background-color: $dfs;
+    }
+
+    &.bestfirst {
+      background-color: $bestfirst;
+    }
+
+    &.astar {
+      background-color: $astar;
+    }
+
+    &.bfs {
+      background-color: $bfs;
+    }
   }
 }
 
