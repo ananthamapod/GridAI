@@ -5,7 +5,7 @@ $end: #c0392b;
 $player: #1C86EE;
 $dfs: #FF6666;
 $bfs: #FBB829;
-$bestfirst: #008000;
+$bestfirst: #16a085;
 $astar: #8e44ad;
 
 /**********************************/
@@ -89,8 +89,60 @@ body.theme-dark {
     cursor: pointer;
   }
 
-  .modes {
-    
+  .mode-toggle {
+    border-radius: 0.5em;
+    background: linear-gradient(to right, $dfs, $bfs);
+    margin: 0;
+
+    input[type=radio] {
+      display: none;
+
+      &:checked + label {
+        color: ghostwhite;
+        font-weight: bolder;
+        background: transparent;
+      }
+    }
+
+    label {
+      display: block;
+      cursor: pointer;
+      background: rgba(ghostwhite, 0.3);
+      text-align: center;
+      padding: 0.5rem 0.75rem;
+      z-index: 50;
+      transition: all 0.4s ease;
+      margin: 0;
+    }
+
+    .mode-slider {
+      width: 33%;
+      height: 1em;
+      position: absolute;
+      top: 3px;
+      border-radius: 50px;
+      -webkit-transition: all 0.4s ease;
+      -moz-transition: all 0.4s ease;
+      -o-transition: all 0.4s ease;
+      -ms-transition: all 0.4s ease;
+      transition: all 0.4s ease;
+      z-index: 0;
+    }
+
+    #mode1:checked ~ .mode-slider {
+      background: rgba($dfs, 0.3);
+      left: 0%;
+    }
+
+    #mode2:checked ~ .mode-slider {
+      background: rgba($dfs, 0.7);
+      left: 33%;
+    }
+
+    #mode3:checked ~ .mode-slider {
+      background: rgba($dfs, 0.7);
+      left: 66%;
+    }
   }
 }
 

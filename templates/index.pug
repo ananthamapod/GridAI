@@ -22,7 +22,7 @@ html(lang='en')
         #maze_form.justify-content-between.row
           form.col
             .row
-              .col-12.col-md-8.form-inline
+              .col-12.col-md-8
                 .row
                   .col-12.col-sm-6.form-inline
                     label.sr-only(for='width') Width
@@ -34,20 +34,21 @@ html(lang='en')
                     .input-group.mb-2.mr-sm-2.mb-sm-0
                       .input-group-addon Height
                       input.form-control(type='text', name='height')
-                  .col-12.form-inline.modes
-                    strong mode
-                    .form-check.form-check-inline
-                      label.form-check-label
-                        input.form-check-input(type='radio', name='mode', value='casual', checked)
-                        |  Casual
-                    .form-check.form-check-inline
-                      label.form-check-label
-                        input.form-check-input(type='radio', name='mode', value='timed')
-                        |  Timed
-                    .form-check.form-check-inline
-                      label.form-check-label
-                        input.form-check-input(type='radio', name='mode', value='hypertime')
-                        |  Hypertime
+                  .col-12
+                    .container.mt-2
+                      strong mode
+                      .row.mode-toggle
+                        input#mode1(type='radio', name='mode', value='casual', checked)
+                        label.col-12.col-sm(for='mode1')
+                          | Casual
+                        input#mode2(type='radio', name='mode', value='timed')
+                        label.col-12.col-sm(for='mode2')
+                          | Timed
+                        input#mode3.toggle_option(type='radio', name='mode', value='hypertime')
+                        label.col-12.col-sm(for='mode3')
+                          | Hypertime
+                        .row.mode-slider-outer
+                          .col.mode-slider
               .col.col-md
                 button.btn.btn-success(type='submit') Generate
       .container
