@@ -313,6 +313,10 @@ body.theme-dark {
   background: #f1f1f1;
   transition: .4s;
 
+  .legend-title {
+    text-align: center;
+  }
+
   .legend-swatch {
     height: 1.3em;
     width: 1.3em;
