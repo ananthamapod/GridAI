@@ -46,6 +46,10 @@ html, body {
 header {
   padding: 2rem;
   text-align: center;
+
+  h1 {
+    font-family: Arial;
+  }
 }
 
 body.theme-dark {
@@ -91,7 +95,7 @@ body.theme-dark {
 
   .mode-toggle {
     border-radius: 0.5em;
-    background: linear-gradient(to right, $dfs, $bfs);
+    background: linear-gradient(to right, $bfs, $dfs);
     margin: 0;
 
     input[type=radio] {
@@ -239,7 +243,7 @@ body.theme-dark {
     margin: 0;
     padding: 0;
     line-height: 0;
-
+    flex-wrap: nowrap;
 
     .cell {
       width: 100px;

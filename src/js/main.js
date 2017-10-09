@@ -46,7 +46,7 @@ function create_cell_from_edges(cell) {
 function build_maze() {
   const $canvas = $("<div/>", {id: "canvas"})
   for (let row of maze.cells) {
-    let $rowElem = $("<div/>", {class: "row d-flex justify-content-center"})
+    let $rowElem = $("<div/>", {class: "row justify-content-center"})
     for (let cell of row) {
       let $cellElem = create_cell_from_edges(cell)
       $rowElem.append($cellElem)
