@@ -1,4 +1,4 @@
-# GridWorld
+# GridAI
 >Full featured AI grid environment
 
 [![Build Status](https://travis-ci.org/ananthamapod/GridAI.svg?branch=master)](https://travis-ci.org/ananthamapod/GridAI)
