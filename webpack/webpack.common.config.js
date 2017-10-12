@@ -59,13 +59,13 @@ const config = {
         })
       },
       {
-        test: /\.pug$|\.jade$/,
+        test: /\.(pug$|jade)$/,
         include: APP_DIR,
         loader: 'pug-loader'
       },
       {
         test: /\.(png|woff|woff2|eot|ttf|svg)$/,
-        loader: 'url-loader?limit=100000'
+        loader: 'url-loader?limit=10000'
       }
     ]
   },

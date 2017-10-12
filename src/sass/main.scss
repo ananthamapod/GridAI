@@ -52,6 +52,16 @@ header {
   }
 }
 
+a.github {
+  line-height: 1.4em;
+
+  img {
+    width: 1.4em;
+    height: auto;
+    margin-right: 1em;
+  }
+}
+
 body.theme-dark {
   background: #2D2D2D;
   transition: .4s;
@@ -69,6 +79,14 @@ body.theme-dark {
     }
   }
 
+  a.github {
+    color: ghostwhite;
+
+    img {
+      opacity: 1;
+    }
+  }
+
   .maze {
     background: #313131;
   }
@@ -77,6 +95,15 @@ body.theme-dark {
     background: #313131;
     color: ghostwhite;
   }
+}
+
+#footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 3em;
+  line-height: 3em;
+  background: #e9ecef;
 }
 
 /**********************************/
