@@ -2,6 +2,8 @@
 >Full featured AI grid environment
 
 [![Build Status](https://travis-ci.org/ananthamapod/GridAI.svg?branch=master)](https://travis-ci.org/ananthamapod/GridAI)
+[![Maintainability](https://api.codeclimate.com/v1/badges/575e981e7fac05babf37/maintainability)](https://codeclimate.com/github/ananthamapod/GridAI/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/575e981e7fac05babf37/test_coverage)](https://codeclimate.com/github/ananthamapod/GridAI/test_coverage)
 
 This is a playground for exploring AIs and search algorithms in grid environments. It has a web interface built with Python Flask and some cool modes to play around with. Enjoy!
 ![gridaiscreenshot](https://user-images.githubusercontent.com/5254722/31338745-80177be2-acce-11e7-9058-cc9f7a6b1c7c.png)
