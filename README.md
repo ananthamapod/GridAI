@@ -11,6 +11,9 @@ This is a playground for exploring AIs and search algorithms in grid environment
 ---
 
 ## Setup
+
+### Prerequisites
+
 1. Install the relevant Python dependencies (Flask and related). I recommend installing these in a virtual environment. For more information on virtual environments in Python, see [Virtualenv](http://docs.python-guide.org/en/latest/dev/virtualenvs/)
 
        pip install -r requirements.txt
@@ -31,7 +34,8 @@ This is a playground for exploring AIs and search algorithms in grid environment
    
    And now you can just sit back and watch
 
-## Running the Project and Seeing Pretty Things
+### Running the Project and Seeing Pretty Things
+
 The server can be run from within the current directory using:
 
     python main.py
@@ -49,8 +53,11 @@ Before viewing in the browser, the webpack build process also needs to be run at
 
 Fire it up and see how you like it.
 
+
 ## Implementation
-The maze is generated using a variation of Kruskal's Algorithm for generating minimum weight spanning trees of a graph. The search algorithms are common graph search algorithms, outlined below:
+The maze is generated using a variation of Kruskal's Algorithm for generating minimum weight spanning trees of a graph.
+
+The search algorithms are common graph search algorithms, outlined below:
 
 * Depth first search - a search method that prioritizes fully exploring a given branch before trying a different branch.
 
@@ -67,3 +74,13 @@ The maze is generated using a variation of Kruskal's Algorithm for generating mi
 * A\* search - an enhancement on best first search that uses a combination of heuristic and cost function to decide the best cell to explore next
 
     *Implemented using Euclidean distance from goal as heuristic (as in best first search above) and level (as in breadth first search) as cost function, using a sorted list for the fringe (as with best first search, ideal would be min heap)*
+
+## Authors
+
+* **Ananth Rao** (@ananthamapod)
+
+## License
+
+GPL, for more information, see [LICENSE](LICENSE)
+
+
