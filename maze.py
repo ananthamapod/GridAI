@@ -23,25 +23,7 @@ class Maze(Grid):
         ### vertices
         vertices = [[Vertex(x,y) for x in range(self.width)] for y in range(self.height)]
         ### edges
-        edges = set()
-        # builds a list of edges with random weights, where edges are not duplicated
-        # Note: no edge is tied to any particular vertex
-        for y in range(self.height):
-            for x in range(self.width):
-                v = vertices[y][x]
-                if y > 0:
-                    edges.add(Edge(v,vertices[y-1][x],randint(0,self.width+self.height)))
-                if y < self.height-1:
-                    edges.add(Edge(v,vertices[y+1][x],randint(0,self.width+self.height)))
-                if x > 0:
-                    edges.add(Edge(v,vertices[y][x-1],randint(0,self.width+self.height)))
-                if x < self.width-1:
-                    edges.add(Edge(v,vertices[y][x+1],randint(0,self.width+self.height)))
-
-        #print 'Edge-Set: [' + reduce(lambda x,y: str(x) + ',' + str(y), edges) +']'
-        # use deque instead of list for more efficient removal of sorted edges
-        edges = deque(sorted(edges, key=lambda x: x.weight))
-        #print map(lambda x: x.weight, edges)
+        edges = self.__populate_edges_(vertices)
 
         ### union sets
         vertex_sets = set()
@@ -56,12 +38,11 @@ class Maze(Grid):
             curr_vs = list(edge.vertices)
             v_set1 = self.__find_set_of_occurrence_(curr_vs[0], vertex_sets)
             v_set2 = self.__find_set_of_occurrence_(curr_vs[1], vertex_sets)
-            #print reduce(lambda x,y: str(x)+','+str(y),v_set1)
-            #print reduce(lambda x,y: str(x)+','+str(y),v_set2)
+
             # would cause a cycle, ignore
             if v_set1 == v_set2:
                 continue
-            # else
+
             # remove the sets if they exist in the current group
             for i in (v_set1, v_set2):
                 try:
@@ -70,20 +51,27 @@ class Maze(Grid):
                     pass
             # add back the unioned set
             vertex_sets.add(frozenset(v_set1|v_set2))
-            #print "VS"
-            #print "\n".join([reduce(lambda x,y: str(x)+','+str(y),s) for s in vertex_sets])
-            #print "-----"
             path.append(edge)
             count += 1
 
         # put maze edges into grid
-        # print reduce(lambda x,y: str(x) + ',' + str(y), path)
+        self.__map_out_maze_through_vertices_(path)
+
+
+    """ Function
+    Name: map_out_maze_through_vertices (Private)
+    Inputs: path - List[Edge]
+    Description: Goes through path and adds each edge in path as
+    part of appropriate vertices' neighbors
+    """
+    def __map_out_maze_through_vertices_(self, path):
         for edge in path:
             vs = list(edge.vertices)
             v1 = self.cells[vs[0].y][vs[0].x]
             v2 = self.cells[vs[1].y][vs[1].x]
             v1.neighbors.append((vs[1].y-vs[0].y, vs[1].x-vs[0].x))
             v2.neighbors.append((vs[0].y-vs[1].y, vs[0].x-vs[1].x))
+
 
     """ Function
     Name: find_set_of_occurrence (Private)
@@ -99,3 +87,29 @@ class Maze(Grid):
         return frozenset([v])
 
 
+    """ Function
+    Name: populate_edges (Private)
+    Inputs: vertices - List[List[Vertex]]
+    Outputs: edges - Double-ended queue of graph edges
+    Description: Loops through vertices and generates edges for fully connected
+    graph
+    """
+    def __populate_edges_(self, vertices):
+        ### edges
+        edges = set()
+        # builds a list of edges with random weights, where edges are not duplicated
+        # Note: no edge is tied to any particular vertex
+        for y in range(self.height):
+            for x in range(self.width):
+                v = vertices[y][x]
+                if y > 0:
+                    edges.add(Edge(v,vertices[y-1][x],randint(0,self.width+self.height)))
+                if y < self.height-1:
+                    edges.add(Edge(v,vertices[y+1][x],randint(0,self.width+self.height)))
+                if x > 0:
+                    edges.add(Edge(v,vertices[y][x-1],randint(0,self.width+self.height)))
+                if x < self.width-1:
+                    edges.add(Edge(v,vertices[y][x+1],randint(0,self.width+self.height)))
+
+        # use deque instead of list for more efficient removal of sorted edges
+        return deque(sorted(edges, key=lambda x: x.weight))
