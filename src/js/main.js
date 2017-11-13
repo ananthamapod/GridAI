@@ -108,35 +108,29 @@ function request_maze() {
 
 function keyInput(event) {
   switch (event.keyCode) {
-    // left
     case 37:
     case 65:
       playerMove = "left"
-      event.preventDefault()
       break
-    // top
     case 38:
     case 87:
       playerMove = "up"
-      event.preventDefault()
       break
-    // right
     case 39:
     case 68:
       playerMove = "right"
-      event.preventDefault()
       break
-    // bottom
     case 40:
     case 83:
       playerMove = "down"
-      event.preventDefault()
       break
     case 32:
       event.preventDefault()
     default:
       return
   }
+  event.preventDefault()
+
   if (mode == MODES.CASUAL) {
     move()
   }

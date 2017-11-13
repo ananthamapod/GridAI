@@ -9,26 +9,20 @@ class UserPlayer extends Player {
     const currentSquare = $(`.cell.${this.identifier}`)
     let x = this.x
     let y = this.y
+    let actions = {
+      "left": () => x--,
+      "up": () => y--,
+      "right": () => x++,
+      "down": () => y++
+    }
 
     switch (operation) {
       case "left":
-        if (currentSquare.hasClass("left")) {
-          x--
-        }
-        break
       case "up":
-        if (currentSquare.hasClass("top")) {
-          y--
-        }
-        break
       case "right":
-        if (currentSquare.hasClass("right")) {
-          x++
-        }
-        break
       case "down":
-        if (currentSquare.hasClass("bottom")) {
-          y++
+        if (currentSquare.hasClass(operation)) {
+          actions[operation]()
         }
         break
       default:

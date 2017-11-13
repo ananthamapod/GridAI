@@ -91,8 +91,8 @@ class Maze(Grid):
     Name: populate_edges (Private)
     Inputs: vertices - List[List[Vertex]]
     Outputs: edges - Double-ended queue of graph edges
-    Description: Loops through vertices and generates edges for fully connected
-    graph
+    Description: Loops through vertices and generates randomly weighted edges
+    for fully connected graph
     """
     def __populate_edges_(self, vertices):
         ### edges
@@ -103,13 +103,23 @@ class Maze(Grid):
             for x in range(self.width):
                 v = vertices[y][x]
                 if y > 0:
-                    edges.add(Edge(v,vertices[y-1][x],randint(0,self.width+self.height)))
+                    edges.add(self.__generate_random_weight_edge_(v, vertices[y-1][x]))
                 if y < self.height-1:
-                    edges.add(Edge(v,vertices[y+1][x],randint(0,self.width+self.height)))
+                    edges.add(self.__generate_random_weight_edge_(v, vertices[y+1][x]))
                 if x > 0:
-                    edges.add(Edge(v,vertices[y][x-1],randint(0,self.width+self.height)))
+                    edges.add(self.__generate_random_weight_edge_(v, vertices[y][x-1]))
                 if x < self.width-1:
-                    edges.add(Edge(v,vertices[y][x+1],randint(0,self.width+self.height)))
+                    edges.add(self.__generate_random_weight_edge_(v, vertices[y][x+1]))
 
         # use deque instead of list for more efficient removal of sorted edges
         return deque(sorted(edges, key=lambda x: x.weight))
+
+
+    """ Function
+    Name: generate_random_weight_edge (Private)
+    Inputs: vertex1 - Vertex, vertex2 - Vertex
+    Outputs: edge - Randomly weighted graph edge
+    Description: Generates randomly weighted edge from adjacent vertices
+    """
+    def __generate_random_weight_edge_(self, vertex1, vertex2):
+        return Edge(vertex1, vertex2, randint(0,self.width+self.height))
