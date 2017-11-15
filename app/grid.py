@@ -1,4 +1,4 @@
-from cell import Cell
+from app.cell import Cell
 
 """ Class
 Name: Grid

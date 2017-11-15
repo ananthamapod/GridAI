@@ -1,5 +1,5 @@
-from grid import Grid
-from graphutils import Edge, Vertex
+from app.grid import Grid
+from app.graphutils import Edge, Vertex
 from random import randint
 from collections import deque
 

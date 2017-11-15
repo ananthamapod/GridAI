@@ -4,10 +4,11 @@ from logging.handlers import RotatingFileHandler
 from datetime import datetime
 from flask import Flask, request, render_template, jsonify
 from flask_webpack import Webpack
-from maze import Maze
+from app.maze import Maze
 
 
-app = Flask(__name__, static_url_path='/static')
+app = Flask(__name__,
+    static_url_path='/static')
 # to enable pug support in templates instead of jinja2
 app.jinja_env.add_extension('pypugjs.ext.jinja.PyPugJSExtension')
 
@@ -31,7 +32,11 @@ def maze():
         width = int(request.args.get("height"))
         height = int(request.args.get("width"))
     except Exception as e:
-        app.logger.error('New maze attempted with invalid dimensions %s and %d at %s', width, height, str(datetime.today()))
+        app.logger.error(
+            'New maze attempted with invalid dimensions %s and %d at %s',
+            width,
+            height,
+            str(datetime.today()))
     else:
         if width and height:
             environment = Maze(height, width)
@@ -43,7 +48,9 @@ def maze():
 def server_start():
 
     # setting up log file handler
-    handler = RotatingFileHandler('%s/logs/application.log' % os.path.dirname(os.path.realpath(__file__)), maxBytes=10000, backupCount=1)
+    handler = RotatingFileHandler(
+        '%s/logs/application.log' % os.path.dirname(os.path.realpath(__file__)),
+        maxBytes=10000, backupCount=1)
     handler.setLevel(logging.INFO)
     app.logger.addHandler(handler)
 
