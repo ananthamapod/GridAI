@@ -23,8 +23,9 @@ class AStar extends SearchAlgorithm {
   setSearchPath() {
     const yMax = this.maze.height - 1
     const xMax = this.maze.width - 1
-    this.maze.cells[0][0].g = 0
-    let fringe = [this.maze.cells[0][0]]
+    const firstCell = this.maze.cells[0][0]
+    firstCell.g = 0
+    let fringe = [firstCell]
     let searchPath = []
     while(fringe.length > 0) {
       let currentCell = fringe.shift()

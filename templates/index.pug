@@ -10,10 +10,10 @@ html(lang='en')
     .container-fluid
       .container
         header
-          h1 Welcome to GridAI
+          img(src=url_for('static', filename='images/logo2.png'), alt='GridAI Logo')
           p Control the player using the arrow keys or WASD and get to the bottom of the maze
           a.github(href='https://github.com/ananthamapod/GridAI')
-            img(src=url_for('static', filename='images/github-icon.png'))
+            img(src=url_for('static', filename='images/github-icon.png'), alt='Github Icon')
             | Explore the source code here!
         span.float-right.theme-toggle
           label.theme-label Theme:

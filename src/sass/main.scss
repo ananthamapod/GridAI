@@ -47,8 +47,10 @@ header {
   padding: 2rem;
   text-align: center;
 
-  h1 {
-    font-family: Arial;
+  img {
+    width: 100%;
+    max-width: 600px;
+    height: auto;
   }
 }
 
@@ -290,11 +292,11 @@ body.theme-dark {
       border-left: 2px solid #888;
     }
 
-    .top {
+    .up {
       border-top: 2px solid #888;
     }
 
-    .bottom {
+    .down {
       border-bottom: 2px solid #777;
     }
 

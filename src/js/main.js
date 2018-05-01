@@ -11,7 +11,7 @@ let maze = {}
 let width = 0, height = 0
 let player = new UserPlayer("current")
 let agents = []
-let mode = MODES.A
+let mode = MODES.CASUAL
 let playerMove = undefined
 let intervalId = undefined
 
@@ -34,10 +34,10 @@ function create_cell_from_edges(cell) {
       $cellElem.addClass("left")
     }
     else if (neighbor[0] == 1 && neighbor[1] == 0) {
-      $cellElem.addClass("bottom")
+      $cellElem.addClass("down")
     }
     else if (neighbor[0] == -1 && neighbor[1] == 0) {
-      $cellElem.addClass("top")
+      $cellElem.addClass("up")
     }
   }
   return $cellElem
@@ -87,41 +87,47 @@ function move() {
 function request_maze() {
   width = $('[name=width]').val()
   height = $('[name=height]').val()
-  mode = MODES[$('[name=mode]:checked').val()] || MODES.CASUAL
-  $.get(`/api/new_maze?width=${width}&height=${height}`, function(response) {
-    maze = response.maze
-    build_maze()
+  if(checkDimensions(width, height)) {
+    mode = MODES[$('[name=mode]:checked').val()] || MODES.CASUAL
+    $.get(`/api/new_maze?width=${width}&height=${height}`, function(response) {
+      maze = response.maze
+      build_maze()
 
-    resetQuantities()
-    if (mode != MODES.CASUAL) {
-      intervalId = setInterval(() => {
-        move()
-        if(player.x == width - 1 && player.y == height - 1) {
-          clearInterval(intervalId)
-        }
-      }, mode == MODES.B? 1000 : 250)
-    }
-    return true
-  })
+      resetQuantities()
+      if (mode != MODES.CASUAL) {
+        intervalId = setInterval(() => {
+          move()
+          if(player.x == width - 1 && player.y == height - 1) {
+            clearInterval(intervalId)
+          }
+        }, mode == MODES.TIMED? 1000 : 250)
+      }
+      return true
+    })
+  }
   return false
+}
+
+function checkDimensions(width, height) {
+  if (width > 100 || height > 100) {
+    alert("Hey, for sanity, keep the maximum dimensions at 100 ☺")
+    return false
+  }
+  return true
 }
 
 function keyInput(event) {
   switch (event.keyCode) {
-    case 37:
-    case 65:
+    case 37: case 65:
       playerMove = "left"
       break
-    case 38:
-    case 87:
+    case 38: case 87:
       playerMove = "up"
       break
-    case 39:
-    case 68:
+    case 39: case 68:
       playerMove = "right"
       break
-    case 40:
-    case 83:
+    case 40: case 83:
       playerMove = "down"
       break
     case 32:
